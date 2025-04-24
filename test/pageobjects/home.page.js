@@ -71,7 +71,7 @@ class HomePage {
        '/c/hiking-waistpacks',
        '/c/pack-accessories'
      ];
-    }
+
     get CampKitchencategoryLinks(){
       return $$('ul[class="subsite-navigation__list"]');
     }
@@ -200,12 +200,14 @@ async enterSearchTerms() {
     await expect(this.verifySearchBarResults).toBeDisplayed();
   }
 }
+
 async PadsHammockscategoryLinks() {
 for (let index = 0; index <this.PadsHammockscategoryLinks.length;index ++){
 const PadsHammockscategoryLinks= this.PadsHammockscategoryLinks[index];
 await this.PadsHammockscategoryLinks.setValue(PadsHammockscategoryLinks);
 await this.PadsHammockscategoryLinks.click();
 await expect(this.PadsHammockscategoryendpoints).toBeDisplayed();
+await expect(this.verifypopup).notToBedisplayed();
 }
 }
 }
