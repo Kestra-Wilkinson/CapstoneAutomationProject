@@ -13,10 +13,9 @@ class HomePage {
       'sleeping bags',
       'hydro flask',
       'water bottles',
-      'aaaaaaaaaaaaaaaaaaaaaaa',
-      '@@@@@@@@@@@@@@@@@@@@@@@',
-    ];
-  }
+      'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+      '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',
+  }];
   get verifySearchBarResults(){
     return $$('.cdr-container_15-1-0 cdr-container--static_15-1-0 MURvBOgKGVzFQgFh6_Oo');
   }
@@ -31,34 +30,29 @@ class HomePage {
      '/c/hiking-shirts',
       '/c/hiking-pants',
      ' /c/hiking-shorts',
-     '/c/hiking-socks',
-   ];
+    '/c/hiking-socks',]
   }
+
   get PadsHammockscategoryLinks(){
-    return $$('ul[class="subsite-navigation__item"]');
+    return $$('ul@id="mm-camping-and-hiking-sleeping-pads-cots-and-hammocks"]');
   }
-  get PadsHammockscategoryendpoints(){
-   return [
-     '/c/sleeping-pads',
+  
+    PadsHammockscategoryendpoints(){
+   [ '/c/sleeping-pads',
     '/c/hammocks',
     ' /c/cots',
     '/c/camp-mattresses',
     '/c/camp-pillows',
-    '/c/camp-blankets',
-  ];
-  }
+    '/c/camp-blankets',]:
+    }
   get lightingcategoryLinks(){
-  return $$('ul[class="subsite-navigation__list"]')
+  return $$('ul[@id="mm-camping-and-hiking-camp-lighting"]');
   }
-
-  get lightingcategoryLinkendpoints(){
-    return [
-      '/c/headlamps',
-      '/c/flashlights-and-lightsticks',
+  lightingcategoryLinkendpoints={
+   [ '/c/headlamps',
+    '/c/flashlights-and-lightsticks',
       '/c/lanterns',
-    ];
   }
-  
   get BackpackscategoryLinks() {
     return $$('ul[class="subsite-navigation__item"]');
   }
@@ -73,16 +67,15 @@ class HomePage {
      ];
 
     get CampKitchencategoryLinks(){
-      return $$('ul[class="subsite-navigation__list"]');
+      return $$('ul[@id="mm-camping-and-hiking-camp-kitchen"]//*');
     }
-    get CampKitchenendpoints(){[
+  CampKitchenendpoints =[
         '/c/stoves-and-grills',
         '/c/cookware-and-dinnerware',
         '/c/coolers',
         '/c/food',
-        '/c/camp-drinkware',
-      ];
-    }
+        '/c/camp-drinkware',]
+      }
   // 3. Product Listing Filter (e.g., Brand filter sidebar)
   get filterSidebar(){
     return $('aside[aria-label="Refine results"]');
@@ -165,6 +158,7 @@ class HomePage {
       await brandCheckbox.click();
     }
   }
+
   // Helper Method to Add Product to Cart
   async addProductToCart(){
     if (await this.sizeOption.isDisplayed()) {
@@ -221,6 +215,7 @@ await expect(this.lightingcategoryLinkendpoints).toBeDisplayed();
 }
 
 async BackpackscategoryLinks(){
+
 for (let index = 0; index <this.BackpackscategoryLinks.length; index++) {
 const BackpackscategoryLinks = this.BackpackscategoryLinks[index];
 await this.BackpackscategoryLinks.setValue(BackpackscategoryLinks);
@@ -243,5 +238,4 @@ async CampKitchencategoryLinks(){
   await expect(this.verifypopup).notToBedisplayed();
   }
 }
-
   export default new HomePage();
