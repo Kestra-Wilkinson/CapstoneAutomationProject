@@ -4,13 +4,20 @@ import homePage from '../pageobjects/home.page.js';
 describe('REI Website Searchbar Functionality Test', () => {
 
 
-it('should perform a search and verify results', async () => {
+it('should perform a search for multiple terms and verify search results', async () => {
     await browser.url('https://www.rei.com');
-    
+
+
     await homePage.enterSearchTerms();
    
+
+
+
 });
 });
+
+
+
 
 
 
@@ -67,4 +74,17 @@ it('should iterate through Backpacks Category  Links and verify the endpoint', a
        
         
 });
+});
+
+
+
+
+describe ('REI Camp Kitchen Category Menu Link Validation', () => {
+    it('should iterate through Camp Kitchen Category  Links and verify the endpoint', async () => {
+        await browser.url('https://www.rei.com');
+
+
+        await homePage.CampKitchencategoryLinks();
+});
+
 });
