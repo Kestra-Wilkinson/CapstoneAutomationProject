@@ -4,7 +4,27 @@ import homePage from '../pageobjects/home.page.js';
 
 
 
+describe('REI Website Nav menu Test',() =>{
 
+
+it('should iterate through the navigation menu', async () =>{
+    await browser.url('https://www.rei.com');
+    
+    
+
+
+
+
+
+
+    for (let index = 0; index <homePage.NavigationMenu.length;index++)
+    await homePage.NavigationMenu.click();
+    
+
+
+});
+
+});
 
 
 
