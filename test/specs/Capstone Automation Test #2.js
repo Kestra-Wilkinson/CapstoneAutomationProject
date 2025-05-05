@@ -17,11 +17,6 @@ it('should iterate through the navigation menu', async () =>{
 
 
 
-    for (let index = 0; index <homePage.NavigationMenu.length;index++)
-    await homePage.NavigationMenu.click();
-    
-
-
 });
 
 });

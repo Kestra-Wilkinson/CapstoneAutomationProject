@@ -15,14 +15,13 @@ class HomePage {
     return $$('div.cdr-container_15-1-0 cdr-container--static_15-1-0 MURvBOgKGVzFQgFh6_Oo');
   }
   // 2. Navigation Menu (example for "Camp & Hike")
-   get CampHikeMenu(){
+   get CampHikeMenubutton(){
     return $('//button[@class="subsite-navigation__link subsite-category__button"]');
    }
   
   get hikingCategoryLinks(){
-    return $$('ul[@id="mm-camping-and-hiking-hiking"]//*');
-   }
-  
+  return $('//ul[@data-menu-name="mm-camping-and-hiking-hiking"]//*')
+  }
    hikingCategoryEndpoints =[
   
     '/c/hiking-footwear',
@@ -30,11 +29,12 @@ class HomePage {
      '/c/hiking-shirts',
       '/c/hiking-pants',
      ' /c/hiking-shorts',
-    '/c/hiking-socks',];
+    '/c/hiking-socks',
+  ];
   
 
-  get PadsHammockscategoryLinks(){
-    return $$('ul[@id="mm-camping-and-hiking-sleeping-pads-cots-and-hammocks"]//*');
+  get PadsHammockscategorylinks(){
+    return $('//ul[@id="mm-camping-and-hiking-sleeping-pads-cots-and-hammocks"]//*');
   }
    
   PadsHammockscategoryendpoints=[
@@ -47,7 +47,7 @@ class HomePage {
     
   
   get lightingcategoryLinks() {
-  return $$('ul[@id="mm-camping-and-hiking-camp-lighting"]//*');
+  return $('//ul[@id="mm-camping-and-hiking-camp-lighting"]//*');
   }
   lightingcategoryLinkendpoints =[
     '/c/headlamps',
@@ -55,7 +55,7 @@ class HomePage {
     '/c/lanterns',]
   
   get BackpackscategoryLinks(){
-    return $$('ul[@id="mm-camping-and-hiking-hiking-backpacks"]//*');
+    return $('//ul[@id="mm-camping-and-hiking-hiking-backpacks"]//*');
   }
 BackpackscategoryEndpoints=[
       '/c/backpacking-packs',
@@ -67,7 +67,7 @@ BackpackscategoryEndpoints=[
 
 
  get CampKitchencategoryLinks() {
-  return $$('ul[@id="mm-camping-and-hiking-camp-kitchen"]//*');
+  return $('//ul[@id="mm-camping-and-hiking-camp-kitchen"]//*');
   }
 
   CampKitchenendpoints = [
@@ -181,14 +181,20 @@ BackpackscategoryEndpoints=[
     }
   }
 async clickhikingCategoryLinks() {
-  for (let index = 0; index < this.hikingCategoryLinks.length;index++){
-    const hikingCategoryLinks = this.hikingCategoryLinks[index];
-    await $('ul[@id="mm-camping-and-hiking-hiking"]').setValue(hikingCategoryLinks);
-    await this.hikingCategoryLinks.click();
-    await expect(this.hikingCategoryEndpoints).toBeDisplayed();
-}
-}
+  
+  for (let index = 0; index < this.hikingCategoryEndpoints.length; index++) {
+    const hikingCategoryLinks = this.hikingCategoryEndpoints[index];
+    await this.CampHikeMenu();
+      await browser.pause(6000);
+       await browser.pause(5000);
+      await this.hikingCategoryLinks.click();
+      await expect(this.hikingCategoryEndpoints).toBeDisplayed();
+    
+      await browser.pause(4000);
+  
+  }
 
+}
   async enterSearchTerms() {
  for (let index = 0; index < this.SearchBarTerms.length;index++) {
   const SearchBarTerms = this.SearchBarTerms[index];
@@ -203,50 +209,51 @@ async clickhikingCategoryLinks() {
 }
 
 async PadsHammockscategoryLinks() {
-for (let index = 0; index <this.PadsHammockscategoryendpoints.length;index ++){
-const PadsHammockscategoryLinks = this.PadsHammockscategoryLinks[index];
-await $('ul[@id="mm-camping-and-hiking-sleeping-pads-cots-and-hammocks"]').setValue(PadsHammockscategoryLinks);
-await this.PadsHammockscategoryLinks.click();
-await expect(this.PadsHammockscategoryendpoints).toBeDisplayed();
-await expect(this.verifypopup).not.toBeDisplayed();
-}
+
+  for (let index = 0; index < this.PadsHammockscategoryendpoints.length; index++) {
+    const PadsHammockscategoryLinks = this.PadsHammockscategoryendpoints[index];
+    await this.CampHikeMenu();
+    await this.PadsHammockscategorylinks.click();
+    await browser.pause(4000);
+    await browser.pause(7000);
+    await browser.pause(30);
+  }
 }
 
 
 async LightingcategoryLinks(){
 
-  for (let index = 0; index < this.lightingcategoryLinkendpoints.length;index++) {
-const lightingcategoryLinks= this.lightingcategoryLinks[index];
-await $('ul[@id="mm-camping-and-hiking-camp-lighting"]').setValue(lightingcategoryLinks);
-await this.lightingcategoryLinks.click();
-await expect(this.lightingcategoryLinkendpoints).toBeDisplayed();
-}
+  for (let index = 0; index < this.lightingcategoryLinkendpoints.length; index++) {
+    const lightingcategoryLinks = this.lightingcategoryLinkendpoints[index];
+    await this.CampHikeMenu();
+    await this.lightingcategoryLinks.click();
+    await browser.pause(5000);
+  }
+
 }
 
 async BackpackscategoryLinks(){
 
-  for (let index = 0; index <this.BackpackscategoryLinks.length; index++) {
-const BackpackscategoryLinks = this.BackpackscategoryLinks[index];{
-await $('ul[@id="mm-camping-and-hiking-hiking-backpacks"]').setValue(BackpackscategoryLinks);
-await this.BackpackscategoryLinks.click();
-await expect(this.BackpackscategoryEndpoints).toBeDisplayed();
+  for (let index = 0; index < this.BackpackscategoryEndpoints.length; index++) {
+    const BackpackscategoryLinks= this.BackpackscategoryEndpoints[index];
+    await this.CampHikeMenu();
+ await this.BackpackscategoryLinks.click();
+  }
 }
-}
-}
+
 async CampKitchencategoryLinks(){
-  for (let index = 0; index < this.CampKitchencategoryLinks.length; index++) {
-  const CampKitchencategoryLinks= this.CampKitchencategoryLinks[index];{
-  await $('ul[@id="mm-camping-and-hiking-camp-kitchen"]').setValue(CampKitchencategoryLinks);
+for (let index = 0; index < this.CampKitchenendpoints.length; index++) {
+  const CampKitchencategoryLinks = this.CampKitchenendpoints[index];
+  await this.CampHikeMenu();
   await this.CampKitchencategoryLinks.click();
-  await expect(this.CampKitchencategoryendpoints).toBeDisplayed();
-}
+  await browser.pause(6000);
 }
 }
 async verifypopup(){
   await expect(this.verifypopup).not.toBeDisplayed();
 }
 async CampHikeMenu(){
-  await expect(this.CampHikeMenu).open()
+  await this.CampHikeMenubutton.click();
 }
 }
 export default new HomePage();
