@@ -12,7 +12,7 @@ it('should iterate through the navigation menu', async () =>{
     
     
 
-
+    await homePage.NavigationMenu();
 
 
 

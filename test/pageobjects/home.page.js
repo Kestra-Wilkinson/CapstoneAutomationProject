@@ -15,12 +15,17 @@ class HomePage {
     return $$('div.cdr-container_15-1-0 cdr-container--static_15-1-0 MURvBOgKGVzFQgFh6_Oo');
   }
   // 2. Navigation Menu (example for "Camp & Hike")
-   get CampHikeMenubutton(){
+   get NavigationMenu(){
+    return $$('//div[@class="subsite-navigation"]/li')
+   }
+  get CampHikeMenubutton(){
     return $('//button[@class="subsite-navigation__link subsite-category__button"]');
    }
-  
+  get popupbutton(){
+    return $('//button[@aria-label="Close sign in nudge"]')
+  }
   get hikingCategoryLinks(){
-  return $('//ul[@data-menu-name="mm-camping-and-hiking-hiking"]//*')
+  return $$('//ul[@id="mm-camping-and-hiking-hiking"]/li[@class="subsite-navigation__item"]/a');
   }
    hikingCategoryEndpoints =[
   
@@ -28,34 +33,36 @@ class HomePage {
      '/c/hiking-jackets',
      '/c/hiking-shirts',
       '/c/hiking-pants',
-     ' /c/hiking-shorts',
-    '/c/hiking-socks',
-  ];
+      '/c/hiking-shorts',
+      '/c/hiking-socks',
+  ]
   
 
   get PadsHammockscategorylinks(){
-    return $('//ul[@id="mm-camping-and-hiking-sleeping-pads-cots-and-hammocks"]//*');
+    return $$('//ul[@id="mm-camping-and-hiking-sleeping-pads-cots-and-hammocks"]/li[@class="subsite-navigation__item"]/a');
   }
    
   PadsHammockscategoryendpoints=[
-      '/c/sleeping-pads',
+    '/c/sleeping-pads',
     '/c/hammocks',
     '/c/cots',
     '/c/camp-mattresses',
     '/c/camp-pillows',
-    '/c/camp-blankets',]
+    '/c/camp-blankets',
+  ]
     
   
   get lightingcategoryLinks() {
-  return $('//ul[@id="mm-camping-and-hiking-camp-lighting"]//*');
+  return $$('//ul[@id="mm-camping-and-hiking-camp-lighting"]/li/a');
   }
   lightingcategoryLinkendpoints =[
     '/c/headlamps',
     '/c/flashlights-and-lightsticks',
-    '/c/lanterns',]
+    '/c/lanterns',
+  ]
   
-  get BackpackscategoryLinks(){
-    return $('//ul[@id="mm-camping-and-hiking-hiking-backpacks"]//*');
+  get Backpackscategorylinks(){
+    return $$('//ul[@id="mm-camping-and-hiking-hiking-backpacks"]/li[@class="subsite-navigation__item"]/a');
   }
 BackpackscategoryEndpoints=[
       '/c/backpacking-packs',
@@ -63,11 +70,12 @@ BackpackscategoryEndpoints=[
        '/c/hiking-hydration-packs',
        '/c/baby-carrier-packs',
        '/c/hiking-waistpacks',
-      '/c/pack-accessories',]
+      '/c/pack-accessories',
+    ]
 
 
- get CampKitchencategoryLinks() {
-  return $('//ul[@id="mm-camping-and-hiking-camp-kitchen"]//*');
+ get CampKitchencategorylinks() {
+  return $('//li[@class="subsite-navigation__item has-submenu-group"]/a');
   }
 
   CampKitchenendpoints = [
@@ -181,18 +189,14 @@ BackpackscategoryEndpoints=[
     }
   }
 async clickhikingCategoryLinks() {
-  
-  for (let index = 0; index < this.hikingCategoryEndpoints.length; index++) {
-    const hikingCategoryLinks = this.hikingCategoryEndpoints[index];
+  const Hikingcategorytext =["Footwear","Jackets","Shirts","Pants","Shorts","Socks"]
+    await this.popupbutton.click();
     await this.CampHikeMenu();
-      await browser.pause(6000);
-       await browser.pause(5000);
-      await this.hikingCategoryLinks.click();
-      await expect(this.hikingCategoryEndpoints).toBeDisplayed();
-    
-      await browser.pause(4000);
-  
-  }
+    for (let index = 0; index < this.hikingCategoryEndpoints.length; index++) {
+     await expect(this.hikingCategoryLinks[index]).toBeExisting();
+      await expect(this.hikingCategoryLinks[index]).toHaveText(Hikingcategorytext[index]);
+   
+    }
 
 }
   async enterSearchTerms() {
@@ -209,44 +213,59 @@ async clickhikingCategoryLinks() {
 }
 
 async PadsHammockscategoryLinks() {
-
+  const PadsHammocksText =["Sleeping Pads","Hammocks","Cots","Camp Mattresses","Pillows","Blankets"]
+  await this.popupbutton.click();
+  await this.CampHikeMenu();
+ 
   for (let index = 0; index < this.PadsHammockscategoryendpoints.length; index++) {
-    const PadsHammockscategoryLinks = this.PadsHammockscategoryendpoints[index];
-    await this.CampHikeMenu();
-    await this.PadsHammockscategorylinks.click();
-    await browser.pause(4000);
-    await browser.pause(7000);
-    await browser.pause(30);
+    await expect(this.PadsHammockscategorylinks[index]).toBeExisting();
+    await expect(this.PadsHammockscategorylinks[index]).toHaveText(PadsHammocksText[index]);
+ 
+   
+    
+
   }
 }
 
 
 async LightingcategoryLinks(){
-
+ const Lightinglinks =["Headlamps", "Flashlights","Lanterns",]
+  await this.popupbutton.click();
+  await this.CampHikeMenu();
   for (let index = 0; index < this.lightingcategoryLinkendpoints.length; index++) {
-    const lightingcategoryLinks = this.lightingcategoryLinkendpoints[index];
-    await this.CampHikeMenu();
-    await this.lightingcategoryLinks.click();
-    await browser.pause(5000);
+   
+    await expect(this.lightingcategoryLinks[index]).toBeExisting();
+    await expect(this.lightingcategoryLinks[index]).toHaveText(Lightinglinks[index]);
+ 
+    
+    
+    
   }
 
 }
 
 async BackpackscategoryLinks(){
-
+  const BackpacksLinks =["Backpacking Packs", "Daypacks","Hydration Packs"," Baby Carrier Packs", "Waist Packs","Accessories"]
+  await this.popupbutton.click();
+  await this.CampHikeMenu();
   for (let index = 0; index < this.BackpackscategoryEndpoints.length; index++) {
-    const BackpackscategoryLinks= this.BackpackscategoryEndpoints[index];
-    await this.CampHikeMenu();
- await this.BackpackscategoryLinks.click();
+   
+    await expect(this.Backpackscategorylinks[index]).toBeExisting();
+    await expect(this.Backpackscategorylinks[index]).toHaveText(BackpacksLinks[index-1]);
+ 
   }
 }
 
 async CampKitchencategoryLinks(){
-for (let index = 0; index < this.CampKitchenendpoints.length; index++) {
-  const CampKitchencategoryLinks = this.CampKitchenendpoints[index];
+  await this.popupbutton.click();
   await this.CampHikeMenu();
-  await this.CampKitchencategoryLinks.click();
-  await browser.pause(6000);
+  for (let index = 0; index < this.CampKitchenendpoints.length; index++) {
+  
+
+  
+
+  
+  
 }
 }
 async verifypopup(){
@@ -255,5 +274,20 @@ async verifypopup(){
 async CampHikeMenu(){
   await this.CampHikeMenubutton.click();
 }
+async NavigationMenu(){
+  
+  for (let index = 0; index < this.NavigationMenu.length; index++) {
+    const NavigationMenu = this.NavigationMenu[index];
+    await browser.pause(6000);
+    await browser.pause(6000);
+    await this.NavigationMenu.click();
+    await browser.pause(4000);
+    await browser.pause(4000);
+    await browser.pause(4000);
+    await browser.pause(4000);
+    await browser.pause(5000);
+  }
+}
+
 }
 export default new HomePage();
