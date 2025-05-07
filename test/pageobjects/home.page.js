@@ -271,9 +271,9 @@ async CampHikeMenu(){
 async NavigationMenu(){
   const NavigationMenuLinks =["Camp & Hike","Climb","Cycle","Water","Run"]
     await this.popupbutton.click();
-    await this.NavigationMenu();
+    await this.NavigationMenu().length;
     for (let index = 0; index < NavigationMenuLinks.length; index++) {
-    await expect(this.NavigationMenu[index]).toBeExisting();
+    await expect(this.NavigationMenu[index]).toBeExisting(NavigationMenuLinks[index]);
     await expect(this.NavigationMenu[index]).toHaveText(NavigationMenuLinks[index])
   }
 }
