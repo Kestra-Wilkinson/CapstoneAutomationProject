@@ -16,7 +16,7 @@ class HomePage {
   }
   // 2. Navigation Menu (example for "Camp & Hike")
    get NavigationMenu(){
-    return $$('//div[@class="subsite-navigation"]/li')
+    return $('//div[@class="subsite-navigation"]/ul[@class="subsite-navigation__list"]');
    }
   get CampHikeMenubutton(){
     return $('//button[@class="subsite-navigation__link subsite-category__button"]');
@@ -24,6 +24,7 @@ class HomePage {
   get popupbutton(){
     return $('//button[@aria-label="Close sign in nudge"]')
   }
+
   get hikingCategoryLinks(){
   return $$('//ul[@id="mm-camping-and-hiking-hiking"]/li[@class="subsite-navigation__item"]/a');
   }
@@ -53,7 +54,7 @@ class HomePage {
     
   
   get lightingcategoryLinks() {
-  return $$('//ul[@id="mm-camping-and-hiking-camp-lighting"]/li/a');
+  return $$('//ul[@id="mm-camping-and-hiking-camp-lighting"]/li[@class="subsite-navigation__item"]/a');
   }
   lightingcategoryLinkendpoints =[
     '/c/headlamps',
@@ -75,7 +76,7 @@ BackpackscategoryEndpoints=[
 
 
  get CampKitchencategorylinks() {
-  return $('//li[@class="subsite-navigation__item has-submenu-group"]/a');
+  return $$('//ul[@id="mm-camping-and-hiking-camp-kitchen"]/li[@class="subsite-navigation__item"]');
   }
 
   CampKitchenendpoints = [
@@ -190,12 +191,10 @@ BackpackscategoryEndpoints=[
   }
 async clickhikingCategoryLinks() {
   const Hikingcategorytext =["Footwear","Jackets","Shirts","Pants","Shorts","Socks"]
-    await this.popupbutton.click();
     await this.CampHikeMenu();
     for (let index = 0; index < this.hikingCategoryEndpoints.length; index++) {
-     await expect(this.hikingCategoryLinks[index]).toBeExisting();
+       await expect(this.hikingCategoryLinks[index]).toBeExisting();
       await expect(this.hikingCategoryLinks[index]).toHaveText(Hikingcategorytext[index]);
-   
     }
 
 }
@@ -214,9 +213,8 @@ async clickhikingCategoryLinks() {
 
 async PadsHammockscategoryLinks() {
   const PadsHammocksText =["Sleeping Pads","Hammocks","Cots","Camp Mattresses","Pillows","Blankets"]
-  await this.popupbutton.click();
   await this.CampHikeMenu();
- 
+  
   for (let index = 0; index < this.PadsHammockscategoryendpoints.length; index++) {
     await expect(this.PadsHammockscategorylinks[index]).toBeExisting();
     await expect(this.PadsHammockscategorylinks[index]).toHaveText(PadsHammocksText[index]);
@@ -229,11 +227,11 @@ async PadsHammockscategoryLinks() {
 
 
 async LightingcategoryLinks(){
- const Lightinglinks =["Headlamps", "Flashlights","Lanterns",]
-  await this.popupbutton.click();
-  await this.CampHikeMenu();
+ const Lightinglinks =["Headlamps","Flashlights","Lanterns",]
+ await browser.pause(2000);
+ await this.CampHikeMenu();
+ 
   for (let index = 0; index < this.lightingcategoryLinkendpoints.length; index++) {
-   
     await expect(this.lightingcategoryLinks[index]).toBeExisting();
     await expect(this.lightingcategoryLinks[index]).toHaveText(Lightinglinks[index]);
  
@@ -245,27 +243,23 @@ async LightingcategoryLinks(){
 }
 
 async BackpackscategoryLinks(){
-  const BackpacksLinks =["Backpacking Packs", "Daypacks","Hydration Packs"," Baby Carrier Packs", "Waist Packs","Accessories"]
-  await this.popupbutton.click();
+  const BackpacksLinks =["Backpacking Packs","Daypacks","Hydration Packs","Baby Carrier Packs","Waist Packs","Accessories"] 
   await this.CampHikeMenu();
   for (let index = 0; index < this.BackpackscategoryEndpoints.length; index++) {
    
     await expect(this.Backpackscategorylinks[index]).toBeExisting();
-    await expect(this.Backpackscategorylinks[index]).toHaveText(BackpacksLinks[index-1]);
+    await expect(this.Backpackscategorylinks[index]).toHaveText(BackpacksLinks[index]);
  
   }
 }
 
 async CampKitchencategoryLinks(){
-  await this.popupbutton.click();
-  await this.CampHikeMenu();
-  for (let index = 0; index < this.CampKitchenendpoints.length; index++) {
+ const Campkitchenlinks =["Stoves, Grills & Fuel ", "Cookware & Dinnerware", "Coolers", "Food","Drinkware",]
+ await this.CampHikeMenu();
   
-
-  
-
-  
-  
+ for (let index = 0; index < this.CampKitchenendpoints.length; index++) {
+    await expect(this.CampKitchencategorylinks[index]).toBeExisting([index]);
+    await expect(this.CampKitchencategorylinks[index]).toHaveText(Campkitchenlinks[index]);
 }
 }
 async verifypopup(){
@@ -275,17 +269,12 @@ async CampHikeMenu(){
   await this.CampHikeMenubutton.click();
 }
 async NavigationMenu(){
-  
-  for (let index = 0; index < this.NavigationMenu.length; index++) {
-    const NavigationMenu = this.NavigationMenu[index];
-    await browser.pause(6000);
-    await browser.pause(6000);
-    await this.NavigationMenu.click();
-    await browser.pause(4000);
-    await browser.pause(4000);
-    await browser.pause(4000);
-    await browser.pause(4000);
-    await browser.pause(5000);
+  const NavigationMenuLinks =["Camp & Hike","Climb","Cycle","Water","Run"]
+    await this.popupbutton.click();
+    await this.NavigationMenu();
+    for (let index = 0; index < NavigationMenuLinks.length; index++) {
+    await expect(this.NavigationMenu[index]).toBeExisting();
+    await expect(this.NavigationMenu[index]).toHaveText(NavigationMenuLinks[index])
   }
 }
 
